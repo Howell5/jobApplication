@@ -16,20 +16,37 @@ class Login extends Component {
   }
 
   render() {
-    console.log('this.props in the Login', this.props);
-    const { user, registerSuccess } = this.props;
+    const { user, registerSuccess, history } = this.props;
+    const { userName, pwd } = this.state;
     return (
       <div>
         <Logo />
         <WingBlank>
           <List>
-            <InputItem />
+            <InputItem
+              onChange={value => {
+                this.setState({ user: value });
+              }}
+            >
+              username:
+            </InputItem>
             <WhiteSpace />
-            <InputItem />
-            <WhiteSpace />
-            <Button type="primary">Login</Button>
-            <Button type="primary">Register</Button>
+            <InputItem
+              onChange={value => {
+                this.setState({ pwd: value });
+              }}
+            >
+              password:
+            </InputItem>
           </List>
+          <WhiteSpace />
+          <Button onClick={() => {}} type="primary">
+            Login
+          </Button>
+          <WhiteSpace />
+          <Button onClick={() => history.push('/register')} type="primary">
+            Register
+          </Button>
         </WingBlank>
       </div>
     );

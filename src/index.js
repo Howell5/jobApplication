@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Login from './container/Login/login';
+import Register from './container/Register/register';
 // import Register from './container/register/register';
 
 import reducer from './reducer';
@@ -21,7 +22,8 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <Route component={Login} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
       </div>
     </BrowserRouter>
   </Provider>,
