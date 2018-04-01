@@ -10,10 +10,10 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
+      name: '',
       pwd: '',
-      repeatpwd: '',
-      type: 'genius'
+      repeatPwd: '',
+      type: 'genius' //defalut
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
@@ -26,7 +26,7 @@ class Register extends Component {
   }
 
   handleRegister() {
-    console.log('handleRegister', this.state);
+    return this.props.register(this.state);
   }
 
   render() {
@@ -36,10 +36,12 @@ class Register extends Component {
         {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo />
         <List>
-          {this.props.msg ? (
-            <p className="error-msg">{this.props.msg}</p>
+          {this.props.message ? (
+            <p className="error-msg" style={{ color: 'red' }}>
+              {this.props.message}
+            </p>
           ) : null}
-          <InputItem onChange={v => this.handleChange('user', v)}>
+          <InputItem onChange={v => this.handleChange('name', v)}>
             用户名
           </InputItem>
           <WhiteSpace />
@@ -52,7 +54,7 @@ class Register extends Component {
           <WhiteSpace />
           <InputItem
             type="password"
-            onChange={v => this.handleChange('repeatpwd', v)}
+            onChange={v => this.handleChange('repeatPwd', v)}
           >
             确认密码
           </InputItem>
@@ -71,7 +73,14 @@ class Register extends Component {
           </RadioItem>
           <WhiteSpace />
           <Button type="primary" onClick={this.handleRegister}>
-            注册{' '}
+            注册
+          </Button>
+          <WhiteSpace />
+          <Button
+            type="primary"
+            onClick={() => this.props.history.push('login')}
+          >
+            登录
           </Button>
         </List>
       </div>
