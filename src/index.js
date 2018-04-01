@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 //container
 import Login from './container/Login/login';
 import Register from './container/Register/register';
-import BoosInfo from './container/BossInfo/BoosInfo';
+import BossInfo from './container/BossInfo/BossInfo';
 import GeniusInfo from './container/GeniusInfo/GeniusInfo';
 
 //component
@@ -20,7 +20,7 @@ const store = createStore(
   reducer,
   compose(
     applyMiddleware(thunk),
-    window.devToolExtension ? window.devToolExtension() : f => f
+    window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );
 
@@ -32,7 +32,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/boosinfo" component={BoosInfo} />
+          <Route path="/bossinfo" component={BossInfo} />
           <Route path="/geniusinfo" component={GeniusInfo} />
         </Switch>
       </div>

@@ -2,10 +2,9 @@ import axios from 'axios';
 import { getRedirectPath } from '../util';
 
 //store
-const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const ERROR_MESSAGE = 'ERROR_MESSAGE';
 const LOAD_DATA = 'LOAD_DATA';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
 
 const initialState = {
   isAuth: false,
@@ -18,7 +17,7 @@ const initialState = {
 //reducer
 export function user(state = initialState, action) {
   switch (action.type) {
-    case REGISTER_SUCCESS:
+    case AUTH_SUCCESS:
       return {
         ...state,
         message: '',
@@ -35,13 +34,6 @@ export function user(state = initialState, action) {
     case LOAD_DATA:
       return {
         ...state,
-        ...action.payload
-      };
-    case LOGIN_SUCCESS:
-      console.log('login success', action, action.payload);
-      return {
-        ...state,
-        redirectTo: getRedirectPath(action.payload),
         ...action.payload
       };
     default:
@@ -62,8 +54,8 @@ const loadData = data => {
     payload: data
   };
 };
-const registerSuccess = data => {
-  return { type: REGISTER_SUCCESS, payload: data };
+const authSuccess = data => {
+  return { type: AUTH_SUCCESS, payload: data };
 };
 
 const register = ({ name, pwd, repeatPwd, type }) => {
@@ -85,19 +77,11 @@ const register = ({ name, pwd, repeatPwd, type }) => {
       .then(res => {
         if (res.status === 200 && res.data.statusCode === 200) {
           console.log('did it dispatch to RS');
-          dispatch(registerSuccess({ name, pwd, type }));
+          dispatch(authSuccess({ name, pwd, type }));
         }
       });
   };
 };
-
-const loginSuccess = data => {
-  return {
-    type: LOGIN_SUCCESS,
-    payload: data
-  };
-};
-
 const login = ({ name, pwd }) => {
   if (!name || !pwd) {
     return errMessage('用户名或密码不能为空');
@@ -105,10 +89,18 @@ const login = ({ name, pwd }) => {
   return dispatch => {
     axios.post('user/login', { name, pwd }).then(res => {
       if (res.status === 200 && res.data.statusCode === 200) {
-        dispatch(loginSuccess(res.data.data));
+        dispatch(authSuccess(res.data.data));
       }
     });
   };
 };
 
-export { register, loadData, login };
+const update = data => dispatch => {
+  axios.post('/user/update', data).then(res => {
+    if (res.status === 200 && res.data.statusCode === 200) {
+      authSuccess(res.data.data);
+    }
+  });
+};
+
+export { register, loadData, login, update };
