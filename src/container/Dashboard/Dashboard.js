@@ -5,9 +5,9 @@ import { Route, Switch } from 'react-router-dom';
 import NavLinkBar from '../../component/NavLinkBar/NavLinkBar';
 import Boss from '../Boss/Boss';
 import Genius from '../Genius/Genius';
+import UserCenter from '../UserCenter/UserCenter';
 
 const Message = () => <div>Message</div>;
-const UserCenter = () => <div>UserCenter</div>;
 
 @connect(state => state)
 class Dashboard extends Component {

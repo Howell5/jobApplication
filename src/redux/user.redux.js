@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cookies from 'browser-cookies';
 import { getRedirectPath } from '../util';
 
 //store
@@ -100,4 +101,8 @@ const update = data => dispatch => {
   });
 };
 
-export { register, loadData, login, update };
+const logout = data => {
+  cookies.erase('userid');
+};
+
+export { register, loadData, login, update, logout };

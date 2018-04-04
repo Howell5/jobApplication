@@ -9,7 +9,7 @@ class ListCard extends Component {
         {this.props.userList.map(
           v =>
             v.avatar ? (
-              <WingBlank>
+              <WingBlank key={v._id}>
                 <Card>
                   <Card.Header
                     title={v.name}
@@ -17,7 +17,9 @@ class ListCard extends Component {
                     extra={<span>{v.title}</span>}
                   />
                   <Card.Body>
-                    {v.desc.split('\n').map(d => <div>{d}</div>)}
+                    {v.desc
+                      .split('\n')
+                      .map((d, idx) => <div key={idx}>{d}</div>)}
                   </Card.Body>
                 </Card>
               </WingBlank>
