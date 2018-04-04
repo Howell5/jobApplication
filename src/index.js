@@ -10,11 +10,12 @@ import Login from './container/Login/login';
 import Register from './container/Register/register';
 import BossInfo from './container/BossInfo/BossInfo';
 import GeniusInfo from './container/GeniusInfo/GeniusInfo';
-
+import Dashboard from './container/Dashboard/Dashboard';
 //component
 import AuthRoute from './component/AuthRoute/AuthRoute';
 
 import reducer from './reducer';
+import './index.css';
 
 const store = createStore(
   reducer,
@@ -34,6 +35,7 @@ ReactDOM.render(
           <Route path="/register" component={Register} />
           <Route path="/bossinfo" component={BossInfo} />
           <Route path="/geniusinfo" component={GeniusInfo} />
+          <Route component={Dashboard} />
         </Switch>
       </div>
     </BrowserRouter>

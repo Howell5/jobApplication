@@ -9,7 +9,6 @@ import { loadData } from '../../redux/user.redux';
 @withRouter
 class AuthRoute extends Component {
   componentDidMount() {
-    console.log('this.props.history', this.props.history);
     const publicPath = ['/register', '/login'];
     const { pathname } = this.props.history.location;
     const exist = publicPath.includes(pathname);
@@ -21,7 +20,6 @@ class AuthRoute extends Component {
     axios.get('/user/cookieInfo').then(res => {
       if (res.status === 200) {
         if (res.data.statusCode === 200) {
-          console.log('this.status', res);
           this.props.loadData(res.data.data);
         } else {
           this.props.history.push('/login');

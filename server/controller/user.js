@@ -65,9 +65,7 @@ const userLogin = async ctx => {
 };
 const detectUserCookie = async ctx => {
   const userid = ctx.cookies.get('userid');
-  console.log('11111', userid);
   if (!userid) {
-    console.log('22222');
     return (ctx.body = {
       statusCode: 400,
       msg: 'get cookies failed'
@@ -75,13 +73,11 @@ const detectUserCookie = async ctx => {
   }
   try {
     const user = await User.findById(userid, _filter);
-    console.log('333333');
     return (ctx.body = {
       statusCode: 200,
       data: user
     });
   } catch (error) {
-    console.log('44444');
     return (ctx.body = {
       statusCode: 400,
       msg: 'failed in find user'
@@ -98,9 +94,7 @@ const updateUser = async ctx => {
     });
   }
   const updateData = ctx.request.body;
-  console.log('updateData', updateData);
   let doc = await User.findOneAndUpdate({ _id: userid }, updateData);
-  console.log('1111doc', doc);
   doc = Object.assign(
     {},
     {
@@ -109,11 +103,33 @@ const updateUser = async ctx => {
     },
     updateData
   );
-  console.log('doooooooooc', doc);
   ctx.body = {
     statusCode: 200,
     data: doc
   };
+};
+
+const getListUser = async ctx => {
+  console.log('ctx.query', ctx.params);
+  const { type } = ctx.params;
+  if (!type) {
+    ctx.body = {
+      statusCode: 400,
+      msg: '获取参数错误'
+    };
+  }
+  try {
+    const docs = await User.find({ type });
+    ctx.body = {
+      statusCode: 200,
+      data: docs
+    };
+  } catch (error) {
+    ctx.body = {
+      statusCode: 400,
+      msg: 'get users failed'
+    };
+  }
 };
 
 router.get('/user', listUser);
@@ -121,5 +137,6 @@ router.post('/user', addUser);
 router.post('/user/login', userLogin);
 router.get('/user/cookieInfo', detectUserCookie);
 router.post('/user/update', updateUser);
+router.get('/user/list/:type', getListUser);
 
 module.exports = router;

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { NavBar, InputItem, TextareaItem, Button } from 'antd-mobile';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { update } from '../../redux/user.redux';
 import AvataSelector from '../../component/AvataSelector/AvataSelector';
 
-@connect(null, { update })
+@connect(state => state.user, { update })
 class BossInfo extends Component {
   constructor(props) {
     super(props);

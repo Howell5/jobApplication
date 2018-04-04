@@ -7,7 +7,6 @@ const LOAD_DATA = 'LOAD_DATA';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 
 const initialState = {
-  isAuth: false,
   name: '',
   message: '',
   type: '',
@@ -21,14 +20,12 @@ export function user(state = initialState, action) {
       return {
         ...state,
         message: '',
-        isAuth: true,
         redirectTo: getRedirectPath(action.payload),
         ...action.payload
       };
     case ERROR_MESSAGE:
       return {
         ...state,
-        isAuth: false,
         message: action.message
       };
     case LOAD_DATA:
@@ -98,7 +95,7 @@ const login = ({ name, pwd }) => {
 const update = data => dispatch => {
   axios.post('/user/update', data).then(res => {
     if (res.status === 200 && res.data.statusCode === 200) {
-      authSuccess(res.data.data);
+      dispatch(authSuccess(res.data.data));
     }
   });
 };
