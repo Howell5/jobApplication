@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Result, List, Brief, WhiteSpace, Modal } from 'antd-mobile';
+import cookies from 'browser-cookies';
+import { Result, List, Button, WhiteSpace, Modal } from 'antd-mobile';
 import { connect } from 'react-redux';
 import { logout } from '../../redux/user.redux';
 import { Redirect } from 'react-router-dom';
@@ -12,8 +13,22 @@ class UserCenter extends Component {
   }
 
   logoutSubmit() {
-    console.log('changggggggg');
-    logout();
+    console.log('cookies', document.cookie);
+    const alert = Modal.alert;
+    alert('登出', 'Are you sure???', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('cancel'),
+        style: 'default'
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          cookies.erase('userid');
+          this.props.logout();
+        }
+      }
+    ]);
   }
   render() {
     const props = this.props;
@@ -33,29 +48,18 @@ class UserCenter extends Component {
           message={props.type === 'boss' ? props.company : null}
         />
         <List renderHeader={() => '简介'}>
-          <Item
-            multipleLine
-            onClick={() => {
-              console.log('iiiiiiiiii');
-            }}
-          >
+          <Item multipleLine>
             {props.title}
             {props.desc.split('\n').map(v => <Brief key={v}>{v}</Brief>)}
             {props.money ? <Brief>薪资:{props.money}</Brief> : null}
           </Item>
         </List>
         <WhiteSpace />
-        <List>
-          <Item
-            onClick={() => {
-              console.log('iiiiiiiiiii');
-            }}
-          >
-            退出登录
-          </Item>
-        </List>
+        <Button onClick={this.logoutSubmit}>退出登录</Button>
       </div>
-    ) : null;
+    ) : (
+      <Redirect to={props.redirectTo} />
+    );
   }
 }
 

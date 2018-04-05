@@ -46,11 +46,10 @@ class Dashboard extends Component {
         component: UserCenter
       }
     ];
+    const navFilter = navList.find(v => v.pathname === pathname);
     return (
       <div>
-        <NavBar className="fixd-header">
-          {navList.find(v => v.pathname === pathname).title}
-        </NavBar>
+        <NavBar className="fixd-header">{navFilter && navFilter.title}</NavBar>
         <div style={{ marginTop: 45 }}>
           <Switch>
             {navList.map(v => (

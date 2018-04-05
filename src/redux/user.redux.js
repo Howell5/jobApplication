@@ -1,11 +1,11 @@
 import axios from 'axios';
-import cookies from 'browser-cookies';
 import { getRedirectPath } from '../util';
 
 //store
 const ERROR_MESSAGE = 'ERROR_MESSAGE';
 const LOAD_DATA = 'LOAD_DATA';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
+const LOG_OUT = 'LOG_OUT ';
 
 const initialState = {
   name: '',
@@ -33,6 +33,11 @@ export function user(state = initialState, action) {
       return {
         ...state,
         ...action.payload
+      };
+    case LOG_OUT:
+      return {
+        ...initialState,
+        redirectTo: '/login'
       };
     default:
       return state;
@@ -101,8 +106,8 @@ const update = data => dispatch => {
   });
 };
 
-const logout = data => {
-  cookies.erase('userid');
+const logout = () => {
+  return { type: LOG_OUT };
 };
 
 export { register, loadData, login, update, logout };

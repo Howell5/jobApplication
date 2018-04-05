@@ -35,7 +35,7 @@ const addUser = async ctx => {
   try {
     const userModel = new User({ name, type, pwd: toMd5Pwd(pwd) });
     const doc = await userModel.save();
-    ctx.cookies.set('userid', doc._id); //set cooikes
+    ctx.cookies.set('userid', doc._id, { httpOnly: false }); //set cooikes
     ctx.body = {
       statusCode: 200,
       msg: 'new user create successd'
@@ -57,7 +57,7 @@ const userLogin = async ctx => {
       msg: '用户名或密码不存在'
     });
   }
-  ctx.cookies.set('userid', doc._id);
+  ctx.cookies.set('userid', doc._id, { httpOnly: false });
   ctx.body = {
     statusCode: 200,
     data: doc

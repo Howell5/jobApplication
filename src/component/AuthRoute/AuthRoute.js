@@ -5,11 +5,12 @@ import axios from 'axios';
 
 import { loadData } from '../../redux/user.redux';
 
-@connect(state => state.user, { loadData })
 @withRouter
+@connect(state => state.user, { loadData })
 class AuthRoute extends Component {
   componentDidMount() {
     const publicPath = ['/register', '/login'];
+    console.log('iiiiiiiiiiiiiiiiiiiiiiii');
     const { pathname } = this.props.history.location;
     const exist = publicPath.includes(pathname);
     if (exist) {

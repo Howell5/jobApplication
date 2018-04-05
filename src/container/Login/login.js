@@ -2,29 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../redux/user.redux';
+import AuthForm from '../../component/HOC/AuthForm';
 import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
 import Logo from '../../component/Logo/logo';
 @connect(state => state.user, {
   login
 })
+@AuthForm
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: '',
-      pwd: ''
-    };
-    this.handleChange = this.handleChange.bind(this);
+
     this.handleLogin = this.handleLogin.bind(this);
-  }
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    });
   }
 
   handleLogin() {
-    this.props.login(this.state);
+    this.props.login(this.props.wrapState);
   }
 
   render() {
@@ -34,13 +27,13 @@ class Login extends Component {
         <Logo />
         <WingBlank>
           <List>
-            <InputItem onChange={val => this.handleChange('name', val)}>
+            <InputItem onChange={val => this.props.handleChange('name', val)}>
               username:
             </InputItem>
             <WhiteSpace />
             <InputItem
               type="password"
-              onChange={val => this.handleChange('pwd', val)}
+              onChange={val => this.props.handleChange('pwd', val)}
             >
               password:
             </InputItem>

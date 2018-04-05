@@ -5,14 +5,14 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+//component
+import AuthRoute from './component/AuthRoute/AuthRoute';
 //container
 import Login from './container/Login/login';
 import Register from './container/Register/register';
 import BossInfo from './container/BossInfo/BossInfo';
 import GeniusInfo from './container/GeniusInfo/GeniusInfo';
 import Dashboard from './container/Dashboard/Dashboard';
-//component
-import AuthRoute from './component/AuthRoute/AuthRoute';
 
 import reducer from './reducer';
 import './index.css';
