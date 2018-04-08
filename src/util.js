@@ -9,4 +9,6 @@ const getRedirectPath = ({ type, avatar }) => {
   return url;
 };
 
-export { getRedirectPath };
+const getChatid = (target, source) => [target, source].sort().join('_');
+
+export { getRedirectPath, getChatid };

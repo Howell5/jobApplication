@@ -90,7 +90,7 @@ const login = ({ name, pwd }) => {
     return errMessage('用户名或密码不能为空');
   }
   return dispatch => {
-    axios.post('user/login', { name, pwd }).then(res => {
+    axios.post('/user/login', { name, pwd }).then(res => {
       if (res.status === 200 && res.data.statusCode === 200) {
         dispatch(authSuccess(res.data.data));
       }

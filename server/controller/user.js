@@ -4,6 +4,7 @@ const util = require('utility');
 const model = require('../model');
 
 const User = model.getModel('user');
+const Chat = model.getModel('chat');
 
 const router = new Router({ prefix: '/api/v1' });
 
@@ -131,12 +132,44 @@ const getListUser = async ctx => {
     };
   }
 };
+const getMsgList = async ctx => {
+  const userid = ctx.cookies.get('userid');
+  const docs = await User.find({});
+  const users = docs.reduce(
+    (acc, v) =>
+      Object.assign(acc, { [v._id]: { name: v.name, avatar: v.avatar } }),
+    {}
+  );
 
+  console.log('users', users);
+  const charMsgs = await Chat.find({ $or: [{ from: userid }, { to: userid }] });
+  if (charMsgs) {
+    return (ctx.body = {
+      users,
+      statusCode: 200,
+      data: charMsgs
+    });
+  }
+};
+const readMsg = async ctx => {
+  const userid = ctx.cookies.get('userid');
+  const { from } = ctx.request.body;
+  const result = await Chat.update(
+    { from, to: userid },
+    { $set: { read: true } },
+    { multi: true }
+  );
+  ctx.body = {
+    statusCode: 200,
+    num: result.nModified
+  };
+};
 router.get('/user', listUser);
 router.post('/user', addUser);
 router.post('/user/login', userLogin);
 router.get('/user/cookieInfo', detectUserCookie);
 router.post('/user/update', updateUser);
 router.get('/user/list/:type', getListUser);
-
+router.get('/user/getmsglist', getMsgList);
+router.post('/user/readmsg', readMsg);
 module.exports = router;

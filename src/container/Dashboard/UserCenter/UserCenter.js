@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cookies from 'browser-cookies';
 import { Result, List, Button, WhiteSpace, Modal } from 'antd-mobile';
 import { connect } from 'react-redux';
-import { logout } from '../../redux/user.redux';
+import { logout } from '../../../redux/user.redux';
 import { Redirect } from 'react-router-dom';
 
 @connect(state => state.user, { logout })
@@ -39,7 +39,7 @@ class UserCenter extends Component {
         <Result
           img={
             <img
-              src={require(`../../component/public/images/${props.avatar}.png`)}
+              src={require(`../../../../public/images/${props.avatar}.png`)}
               style={{ width: 50 }}
               alt=""
             />

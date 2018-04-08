@@ -10,7 +10,6 @@ import { loadData } from '../../redux/user.redux';
 class AuthRoute extends Component {
   componentDidMount() {
     const publicPath = ['/register', '/login'];
-    console.log('iiiiiiiiiiiiiiiiiiiiiiii');
     const { pathname } = this.props.history.location;
     const exist = publicPath.includes(pathname);
     if (exist) {
