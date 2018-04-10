@@ -10,14 +10,12 @@ const router = require('./router');
 io.on('connection', socket => {
   console.log('user login');
   socket.on('sendmsg', data => {
-    console.log('sendmsg', data);
     const { targetUserId, sourceUserId, text } = data;
     const chatid = [targetUserId, sourceUserId].sort().join('_');
     Chat.create(
       { chatid, from: sourceUserId, to: targetUserId, content: text },
       (err, doc) => {
         if (!err) {
-          console.log('!!!!!!!!err', doc);
           io.emit('recvmsg', Object.assign({}, doc._doc));
         }
       }

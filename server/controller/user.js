@@ -111,7 +111,6 @@ const updateUser = async ctx => {
 };
 
 const getListUser = async ctx => {
-  console.log('ctx.query', ctx.params);
   const { type } = ctx.params;
   if (!type) {
     ctx.body = {
@@ -141,7 +140,6 @@ const getMsgList = async ctx => {
     {}
   );
 
-  console.log('users', users);
   const charMsgs = await Chat.find({ $or: [{ from: userid }, { to: userid }] });
   if (charMsgs) {
     return (ctx.body = {
