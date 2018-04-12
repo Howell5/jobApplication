@@ -21,9 +21,13 @@ class Login extends Component {
   }
 
   render() {
+    const { redirectTo } = this.props;
+    const { pathname } = this.props.history;
     return (
       <div>
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
+        {redirectTo && pathname !== redirectTo ? (
+          <Redirect to={redirectTo} />
+        ) : null}
         <Logo />
         <WingBlank>
           <List>

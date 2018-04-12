@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { InputItem, List, Icon, NavBar, Grid } from 'antd-mobile';
+import QueueAnim from 'rc-queue-anim';
 import { connect } from 'react-redux';
 import {
   sendMsg,
@@ -44,13 +45,43 @@ class Chat extends Component {
     }, 0);
   }
 
+  renderChatItem(v, users, userid) {
+    const Item = List.Item;
+    const sourceUserId = this.props.user._id;
+    const isSourceUser = sourceUserId === userid;
+    const avatar = users[userid].avatar;
+    return (
+      <Item
+        key={v._id}
+        className={isSourceUser ? 'chat-me' : null}
+        thumb={
+          isSourceUser
+            ? null
+            : require(`../../../../public/images/${avatar}.png`)
+        }
+        wrap={true}
+        extra={
+          isSourceUser ? (
+            <img
+              src={require(`../../../../public/images/${
+                users[sourceUserId].avatar
+              }.png`)}
+              alt=""
+            />
+          ) : null
+        }
+      >
+        {v.content}
+      </Item>
+    );
+  }
+
   render() {
     const targetUserId = this.props.match.params.user;
     const sourceUserId = this.props.user._id;
     const text = this.state.text;
     const users = this.props.chat.users;
 
-    const Item = List.Item;
     if (Object.keys(users).length === 0) {
       return null;
     }
@@ -64,41 +95,39 @@ class Chat extends Component {
     return (
       <div id="chat-page">
         <NavBar
+          className="chat-nav"
           mode="dark"
           icon={<Icon type="left" />}
           onLeftClick={() => this.props.history.goBack()}
         >
           {users[targetUserId].name}
         </NavBar>
-        {chatMsg.map(v => {
-          return v.from === targetUserId ? (
-            <List key={v._id}>
-              <Item
-                thumb={require(`../../../../public/images/${
-                  users[targetUserId].avatar
-                }.png`)}
-              >
-                {v.content}
-              </Item>
-            </List>
-          ) : (
-            <List key={v._id}>
-              <Item
-                className="chat-me"
-                extra={
-                  <img
-                    src={require(`../../../../public/images/${
-                      users[sourceUserId].avatar
-                    }.png`)}
-                    alt=""
-                  />
-                }
-              >
-                {v.content}
-              </Item>
-            </List>
-          );
-        })}
+        <List className="chat-list">
+          <QueueAnim delay={50}>
+            {chatMsg.map(v => {
+              return v.from === targetUserId
+                ? this.renderChatItem(v, users, targetUserId)
+                : this.renderChatItem(v, users, sourceUserId);
+              // (
+              // <Item
+              //   key={v._id}
+              //   className="chat-me"
+              //   wrap={true}
+              //   extra={
+              //     <img
+              //       src={require(`../../../../public/images/${
+              //         users[sourceUserId].avatar
+              //       }.png`)}
+              //       alt=""
+              //     />
+              //   }
+              // >
+              //   {v.content}
+              // </Item>
+              // );
+            })}
+          </QueueAnim>
+        </List>
         <div className="stick-footer">
           <List>
             <InputItem

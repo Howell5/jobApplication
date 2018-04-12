@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavBar } from 'antd-mobile';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import NavLinkBar from '../../component/NavLinkBar/NavLinkBar';
 import Boss from './Boss/Boss';
 import Genius from './Genius/Genius';
@@ -54,10 +54,10 @@ class Dashboard extends Component {
       }
     ];
     const navFilter = navList.find(v => v.pathname === pathname);
-    return (
+    return navFilter ? (
       <div>
         <NavBar className="fixd-header">{navFilter && navFilter.title}</NavBar>
-        <div style={{ marginTop: 45 }}>
+        <div className="dash-center">
           <Switch>
             {navList.map(v => (
               <Route
@@ -68,12 +68,10 @@ class Dashboard extends Component {
             ))}
           </Switch>
         </div>
-        <NavLinkBar
-          data={navList}
-          // users={this.props.chat.users}
-          chat={this.props.chat}
-        />
+        <NavLinkBar data={navList} chat={this.props.chat} />
       </div>
+    ) : (
+      <Redirect to={`/${user.type}`} />
     );
   }
 }

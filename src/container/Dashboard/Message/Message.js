@@ -9,7 +9,6 @@ class Message extends Component {
     return arr[arr.length - 1];
   }
   render() {
-    console.log(this.props);
     if (!this.props.chat.chatMsg.length) {
       return null;
     }

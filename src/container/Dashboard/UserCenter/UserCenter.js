@@ -13,12 +13,11 @@ class UserCenter extends Component {
   }
 
   logoutSubmit() {
-    console.log('cookies', document.cookie);
     const alert = Modal.alert;
     alert('登出', 'Are you sure???', [
       {
         text: 'Cancel',
-        onPress: () => console.log('cancel'),
+        onPress: () => console.log('logout cancel'),
         style: 'default'
       },
       {
@@ -56,6 +55,7 @@ class UserCenter extends Component {
         </List>
         <WhiteSpace />
         <Button onClick={this.logoutSubmit}>退出登录</Button>
+        <WhiteSpace />
       </div>
     ) : (
       <Redirect to={props.redirectTo} />

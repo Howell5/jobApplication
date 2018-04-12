@@ -7,7 +7,6 @@ import ListCard from '../../../component/ListCard/ListCard';
 class Genius extends Component {
   componentDidMount() {
     this.props.getListCard('boss');
-    console.log('gooooooooo', this);
   }
 
   render() {

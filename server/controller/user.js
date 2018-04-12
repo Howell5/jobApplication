@@ -1,7 +1,10 @@
-const Router = require('koa-router');
-const util = require('utility');
+// const Router = require('koa-router');
+import Router from 'koa-router';
+// const util = require('utility');
+import util from 'utility';
 
-const model = require('../model');
+import model from '../model';
+// const model = require('../model');
 
 const User = model.getModel('user');
 const Chat = model.getModel('chat');
@@ -170,4 +173,5 @@ router.post('/user/update', updateUser);
 router.get('/user/list/:type', getListUser);
 router.get('/user/getmsglist', getMsgList);
 router.post('/user/readmsg', readMsg);
-module.exports = router;
+// module.exports = router;
+export default router;

@@ -1,10 +1,16 @@
-const koa = require('koa');
-const bodyParser = require('koa-bodyparser');
-const Chat = require('./model').getModel('chat');
+import router from './router';
+// const koa = require('koa');
+import koa from 'koa';
+
+// const bodyParser = require('koa-bodyparser');
+import bodyParser from 'koa-bodyparser';
+import model from './model';
+
+const Chat = model.getModel('chat');
 const app = new koa();
 const server = require('http').createServer(app.callback());
 const io = require('socket.io')(server);
-const router = require('./router');
+// const router = require('./router');
 // const {} = require('../src/util')
 
 io.on('connection', socket => {
