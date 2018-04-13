@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { NavBar } from 'antd-mobile';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import QueueAnim from 'rc-queue-anim';
+import { Route, Redirect } from 'react-router-dom';
 import NavLinkBar from '../../component/NavLinkBar/NavLinkBar';
 import Boss from './Boss/Boss';
 import Genius from './Genius/Genius';
@@ -53,20 +54,18 @@ class Dashboard extends Component {
         component: UserCenter
       }
     ];
-    const navFilter = navList.find(v => v.pathname === pathname);
-    return navFilter ? (
+    const page = navList.find(v => v.pathname === pathname);
+    return page ? (
       <div>
-        <NavBar className="fixd-header">{navFilter && navFilter.title}</NavBar>
+        <NavBar className="fixd-header">{page && page.title}</NavBar>
         <div className="dash-center">
-          <Switch>
-            {navList.map(v => (
-              <Route
-                key={v.pathname}
-                path={v.pathname}
-                component={v.component}
-              />
-            ))}
-          </Switch>
+          <QueueAnim>
+            <Route
+              key={page.pathname}
+              path={page.pathname}
+              component={page.component}
+            />
+          </QueueAnim>
         </div>
         <NavLinkBar data={navList} chat={this.props.chat} />
       </div>

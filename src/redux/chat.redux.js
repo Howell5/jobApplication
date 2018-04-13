@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import axios from 'axios';
+import axios from '../config/axios';
 
 const socket = io('ws://localhost:9090');
 

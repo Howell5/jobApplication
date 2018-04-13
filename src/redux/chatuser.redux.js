@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../config/axios';
 
 const LOAD_LIST_USER = 'LOAD_LIST_USER';
 

@@ -5,6 +5,7 @@ import { login } from '../../redux/user.redux';
 import AuthForm from '../../component/HOC/AuthForm';
 import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
 import Logo from '../../component/Logo/logo';
+
 @connect(state => state.user, {
   login
 })

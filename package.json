@@ -35,6 +35,8 @@
     "koa-bodyparser": "^4.2.0",
     "koa-combine-routers": "^2.0.1",
     "koa-router": "^7.4.0",
+    "koa-send": "^4.1.3",
+    "koa-static": "^4.0.2",
     "mongoose": "^5.0.11",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",

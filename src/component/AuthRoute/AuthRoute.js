@@ -1,10 +1,9 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 
+import axios from '../../config/axios';
 import { loadData } from '../../redux/user.redux';
-
 @withRouter
 @connect(state => state.user, { loadData })
 class AuthRoute extends Component {
