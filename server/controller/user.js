@@ -173,5 +173,6 @@ router.post('/user/update', updateUser);
 router.get('/user/list/:type', getListUser);
 router.get('/user/getmsglist', getMsgList);
 router.post('/user/readmsg', readMsg);
+router.post('/test', ctx => (ctx.body = { res: 'test' }));
 // module.exports = router;
 export default router;

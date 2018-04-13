@@ -1,6 +1,10 @@
 import axios from '../config/axios';
 import { getRedirectPath } from '../util';
 
+axios.post('/test', { test: '1' }).then(res => {
+  console.log(res);
+});
+
 //store
 const ERROR_MESSAGE = 'ERROR_MESSAGE';
 const LOAD_DATA = 'LOAD_DATA';
@@ -32,6 +36,7 @@ export function user(state = initialState, action) {
     case LOAD_DATA:
       return {
         ...state,
+        redirectTo: getRedirectPath(action.payload),
         ...action.payload
       };
     case LOG_OUT:

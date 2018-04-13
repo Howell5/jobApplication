@@ -58,7 +58,7 @@ class Dashboard extends Component {
     return page ? (
       <div>
         <NavBar className="fixd-header">{page && page.title}</NavBar>
-        <div className="dash-center">
+        <div className="page-content">
           <QueueAnim>
             <Route
               key={page.pathname}
