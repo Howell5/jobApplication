@@ -32,6 +32,9 @@ class Login extends Component {
         <Logo />
         <WingBlank>
           <List>
+            {this.props.message && (
+              <p className="error-msg">{this.props.message}</p>
+            )}
             <InputItem onChange={val => this.props.handleChange('name', val)}>
               username:
             </InputItem>

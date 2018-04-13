@@ -1,9 +1,9 @@
 import axios from '../config/axios';
 import { getRedirectPath } from '../util';
 
-axios.post('/test', { test: '1' }).then(res => {
-  console.log(res);
-});
+// axios.post('/test', { test: '1' }).then(res => {
+//   console.log(res);
+// });
 
 //store
 const ERROR_MESSAGE = 'ERROR_MESSAGE';
@@ -67,7 +67,7 @@ const authSuccess = data => {
 };
 
 const register = ({ name, pwd, repeatPwd, type }) => {
-  if (!user || !pwd) {
+  if (!name || !pwd) {
     console.log('user pwd is null');
     return errMessage('用户名密码不能为空');
   }
