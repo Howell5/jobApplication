@@ -1,7 +1,8 @@
 import io from 'socket.io-client';
 import axios from '../config/axios';
+import { SOCKETIO_ADDRESS } from '../config/default';
 
-const socket = io('ws://localhost:9090');
+const socket = io(SOCKETIO_ADDRESS);
 
 const MSG_LIST = 'MSG_LIST';
 const MSG_RECV = 'MSG_RECV';

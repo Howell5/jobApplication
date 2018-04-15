@@ -71,7 +71,7 @@
     "build-server": "BABEL_ENV=production babel ./server -d ./server-compiled",
     "run-build-server": "NODE_ENV=production babel-node -- server/server.js",
     "dev-server": "NODE_ENV=test nodemon --exec babel-node -- server/server.js",
-    "run-production": "yarn build && yarn run-build-server"
+    "run-production": "yarn && yarn build && yarn run-build-server"
   },
   "jest": {
     "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}"],
