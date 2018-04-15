@@ -81,7 +81,6 @@ app.use(async (ctx, next) => {
   </html>`;
 
   // await send(ctx, htmlRes);
-  console.log('htmlresssssss', htmlRes);
   ctx.body = htmlRes;
   // await send(ctx, 'index.html', { root: 'build' });
 });
